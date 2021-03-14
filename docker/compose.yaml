@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  # Create the GUI that shows the turtle swimming around.
+  turtlesim:
+    image: turtlesim
+    container_name: turtlesim
+    build:
+      context: .
+      dockerfile: ./turtlesim.Dockerfile
+      args: 
+        ROS_DISTRO: foxy
