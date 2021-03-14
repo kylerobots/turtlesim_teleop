@@ -3,10 +3,19 @@ version: '3.8'
 services:
   # Create the GUI that shows the turtle swimming around.
   turtlesim:
-    image: turtlesim
+    image: turtlesim_teleop:sim
     container_name: turtlesim
     build:
       context: .
       dockerfile: ./turtlesim.Dockerfile
+      args: 
+        ROS_DISTRO: foxy
+  # Create a container for RQT.
+  rqt:
+    image: turtlesim_teleop:rqt
+    container_name: rqt
+    build: 
+      context: .
+      dockerfile: ./rqt.Dockerfile
       args: 
         ROS_DISTRO: foxy

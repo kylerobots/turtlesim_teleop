@@ -10,4 +10,5 @@ You should have Docker and some sort of X11 server (such as VcXserv) installed. 
 
 ## Starting the Simulation ##
 The *compose.yaml* file in the *docker* subfolder is used to start the environment. Run ```docker compose up``` to build
-the containers and start the right nodes. If successful, you should see the familiar turtlesim GUI window appear.
+the containers and start the right nodes. If successful, you should see the familiar turtlesim GUI window appear. An rqt
+windows should also appear for any introspection that may be required.
