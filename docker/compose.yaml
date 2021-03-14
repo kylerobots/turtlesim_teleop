@@ -5,6 +5,8 @@ services:
   turtlesim:
     image: turtlesim_teleop:sim
     container_name: turtlesim
+    networks: 
+      - ros
     build:
       context: .
       dockerfile: ./turtlesim.Dockerfile
@@ -14,8 +16,16 @@ services:
   rqt:
     image: turtlesim_teleop:rqt
     container_name: rqt
+    networks: 
+      - ros
     build: 
       context: .
       dockerfile: ./rqt.Dockerfile
       args: 
         ROS_DISTRO: foxy
+
+# Set up a network that other containers can use to communicate with these nodes.
+networks: 
+  ros:
+    name: ros
+    attachable: true
