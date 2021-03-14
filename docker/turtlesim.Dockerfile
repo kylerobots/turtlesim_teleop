@@ -4,7 +4,8 @@ ARG ROS_DISTRO=foxy
 # Use the minimal version to keep the image size down. Since this is just the simulation, nothing much is needed.
 FROM ros:${ROS_DISTRO}-ros-core
 RUN apt update && \
-	apt install -y ros-${ROS_DISTRO}-turtlesim
+	apt install -y ros-${ROS_DISTRO}-turtlesim && \
+	rm -rf /var/lib/apt/lists/*
 # Set environmental variables assuming this is run in a container on Windows, so it needs X11 forwarding.
 ENV DISPLAY=host.docker.internal:0.0
 ENV LIBGL_ALWAYS_INDIRECT=1
