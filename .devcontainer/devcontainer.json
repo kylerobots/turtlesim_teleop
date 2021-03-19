@@ -1,0 +1,25 @@
+{
+	"name": "turtlesim",
+	"build": {
+		"context": "..",
+		"dockerfile": "../docker/workspace.Dockerfile",
+		"args": {
+			"ROS_DISTRO": "foxy"
+		}
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-vscode.cpptools",
+		"ms-vscode.cmake-tools",
+		"twxs.cmake",
+	],
+	"runArgs": [
+		"--network=ros",
+		"--name=ros-dev"
+	],
+	"workspaceMount": "src=${localWorkspaceFolder},target=/ros_ws/src/${localWorkspaceFolderBasename},type=bind",
+	"workspaceFolder": "/ros_ws/src/${localWorkspaceFolderBasename}",
+	// The interactive terminals created by VS Code need to source ROS upon creation. While the ENTRYPOINT in the
+	// Dockerfile handles this for direct Docker run commands, VS Code overrides that behavior.
+	"postCreateCommand": "echo 'source /opt/ros/foxy/setup.bash' >> ~/.bashrc"
+}
