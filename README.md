@@ -12,3 +12,8 @@ You should have Docker and some sort of X11 server (such as VcXserv) installed. 
 The *compose.yaml* file in the *docker* subfolder is used to start the environment. Run ```docker compose up``` to build
 the containers and start the right nodes. If successful, you should see the familiar turtlesim GUI window appear. An rqt
 windows should also appear for any introspection that may be required.
+
+## Loading the Development Environment ##
+To work on the package within VS Code, select the *Reopen in Container* command. This will build the appropriate
+container and attach the workspace to it. Note that there should be a network named *ros* already in existence. The
+compose file will create one, or you can start one yourself.
