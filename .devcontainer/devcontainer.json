@@ -13,8 +13,12 @@
 		"ms-vscode.cmake-tools",
 		"twxs.cmake",
 	],
-	"workspaceFolder": "/dev_ws/src/${localWorkspaceFolderBasename}",
+	"runArgs": [
+		"--network=ros",
+		"--name=ros-dev"
+	],
 	"workspaceMount": "src=${localWorkspaceFolder},target=/dev_ws/src/${localWorkspaceFolderBasename},type=bind",
+	"workspaceFolder": "/dev_ws/src/${localWorkspaceFolderBasename}",
 	// The interactive terminals created by VS Code need to source ROS upon creation. While the ENTRYPOINT in the
 	// Dockerfile handles this for direct Docker run commands, VS Code overrides that behavior.
 	"postCreateCommand": "echo 'source /opt/ros/foxy/setup.bash' >> ~/.bashrc"
