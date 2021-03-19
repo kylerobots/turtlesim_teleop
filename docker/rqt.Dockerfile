@@ -6,7 +6,8 @@ FROM ros:${ROS_DISTRO}-ros-base
 RUN apt update && \
 	apt install -y \
 	ros-${ROS_DISTRO}-turtlesim \
-	ros-${ROS_DISTRO}-rqt*
+	ros-${ROS_DISTRO}-rqt* && \
+	rm -rf /var/lib/apt/lists/*
 # Set environmental variables assuming this is run in a container on Windows, so it needs X11 forwarding.
 ENV DISPLAY=host.docker.internal:0.0
 ENV LIBGL_ALWAYS_INDIRECT=1
