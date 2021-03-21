@@ -1,9 +1,9 @@
-#include <cstdio>
+#include "Teleoperator.h"
 
-int main(int argc, char ** argv) {
-	(void)argc;
-	(void)argv;
+#include <rclcpp/rclcpp.hpp>
 
-	printf("hello world turtlesim_teleop package\n");
+int main(int argc, const char * argv[]) {
+	rclcpp::init(argc, argv);
+	turtlesim_teleop::Teleoperator teleoperator;
 	return 0;
 }
