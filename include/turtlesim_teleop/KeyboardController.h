@@ -4,6 +4,7 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include <termios.h>
+#include <unistd.h>
 
 namespace turtlesim_teleop {
 	class KeyboardController : public rclcpp::Node {
@@ -22,6 +23,14 @@ namespace turtlesim_teleop {
 		 * 
 		 */
 		~KeyboardController();
+
+		/**
+		 * @brief Continually checks for keyboard input and sends the appropriate command in response.
+		 * 
+		 * This function runs in a continuous loop as long as ROS is active. At each loop, it attempts to read 1
+		 * character from the command line. This character can then be used for control of the turtlebot.
+		 */
+		void readKeyboard();
 
 		private:
 		/**

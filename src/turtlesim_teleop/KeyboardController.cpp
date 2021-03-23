@@ -16,4 +16,18 @@ namespace turtlesim_teleop {
 		// Restore the terminal settings.
 		tcsetattr(terminal_descriptor, TCSANOW, &terminal_original_parameters);
 	}
+	void KeyboardController::readKeyboard() {
+		while (rclcpp::ok()) {
+			try {
+				char c;
+				size_t return_size = read(terminal_descriptor, &c, 1);
+				if (return_size > 0) {
+					std::cout << c << std::endl;
+				}
+
+			} catch (const std::exception & e) {
+				std::cerr << e.what() << '\n';
+			}
+		}
+	}
 } // namespace turtlesim_teleop
