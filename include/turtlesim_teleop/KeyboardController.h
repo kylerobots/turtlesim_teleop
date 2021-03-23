@@ -3,6 +3,8 @@
 
 #include "rclcpp/rclcpp.hpp"
 
+#include <termios.h>
+
 namespace turtlesim_teleop {
 	class KeyboardController : public rclcpp::Node {
 		public:
@@ -20,6 +22,20 @@ namespace turtlesim_teleop {
 		 * 
 		 */
 		~KeyboardController();
+
+		private:
+		/**
+		 * @brief The index ID referencing the terminal.
+		 * 
+		 */
+		int terminal_descriptor;
+
+		/**
+		 * @brief The struct to hold the terminal's parameters before starting the node.
+		 * 
+		 * These are used to restore the terminal to the way it was before when the node exits.
+		 */
+		termios terminal_original_parameters;
 	};
 
 } // namespace turtlesim_teleop
