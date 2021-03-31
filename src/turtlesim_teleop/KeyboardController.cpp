@@ -18,15 +18,36 @@ namespace turtlesim_teleop {
 	}
 	void KeyboardController::readKeyboard() {
 		while (rclcpp::ok()) {
+			// Right now, just look for ASWD. This returns values for most keys, but the others are not so easily
+			// mapped. However 0 represents the Ctrl-C command. (Use printf("%02", c) to see.)
+			char c = 0;
 			try {
-				char c;
-				size_t return_size = read(terminal_descriptor, &c, 1);
-				if (return_size > 0) {
-					std::cout << c << std::endl;
+				read(terminal_descriptor, &c, 1);
+				switch (c) {
+					case 'a':
+					case 'A':
+						std::cout << "Left" << std::endl;
+						break;
+					case 'w':
+					case 'W':
+						std::cout << "Forward" << std::endl;
+						break;
+					case 'd':
+					case 'D':
+						std::cout << "Right" << std::endl;
+						break;
+					case 's':
+					case 'S':
+						std::cout << "Backward" << std::endl;
+						break;
+					case 0:
+						rclcpp::shutdown();
+						break;
+					default:
+						break;
 				}
-
 			} catch (const std::exception & e) {
-				std::cerr << e.what() << '\n';
+				RCLCPP_FATAL(this->get_logger(), "Error reading keyboard commands: '%s'", e.what());
 			}
 		}
 	}
