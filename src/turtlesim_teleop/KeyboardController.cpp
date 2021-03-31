@@ -11,6 +11,8 @@ namespace turtlesim_teleop {
 		terminal_new_parameters.c_cc[VEOL] = 1;
 		terminal_new_parameters.c_cc[VEOF] = 2;
 		tcsetattr(terminal_descriptor, TCSANOW, &terminal_new_parameters);
+		// Set up the publisher.
+		publisher = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 1);
 	}
 	KeyboardController::~KeyboardController() {
 		// Restore the terminal settings.
@@ -21,26 +23,40 @@ namespace turtlesim_teleop {
 			// Right now, just look for ASWD. This returns values for most keys, but the others are not so easily
 			// mapped. However 0 represents the Ctrl-C command. (Use printf("%02", c) to see.)
 			char c = 0;
+			geometry_msgs::msg::Twist msg;
 			try {
 				read(terminal_descriptor, &c, 1);
 				switch (c) {
 					case 'a':
 					case 'A':
-						std::cout << "Left" << std::endl;
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Left");
+						msg.linear.x = 0.0;
+						msg.linear.y = 1.0;
+						msg.angular.z = 0.0;
 						break;
 					case 'w':
 					case 'W':
-						std::cout << "Forward" << std::endl;
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Forward");
+						msg.linear.x = 1.0;
+						msg.linear.y = 0.0;
+						msg.angular.z = 0.0;
 						break;
 					case 'd':
 					case 'D':
-						std::cout << "Right" << std::endl;
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Right");
+						msg.linear.x = 0.0;
+						msg.linear.y = -1.0;
+						msg.angular.z = 0.0;
 						break;
 					case 's':
 					case 'S':
-						std::cout << "Backward" << std::endl;
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Backward");
+						msg.linear.x = -1.0;
+						msg.linear.y = 0.0;
+						msg.angular.z = 0.0;
 						break;
 					case 0:
+						RCLCPP_DEBUG(this->get_logger(), "Shutting down");
 						rclcpp::shutdown();
 						break;
 					default:
@@ -49,6 +65,7 @@ namespace turtlesim_teleop {
 			} catch (const std::exception & e) {
 				RCLCPP_FATAL(this->get_logger(), "Error reading keyboard commands: '%s'", e.what());
 			}
+			publisher->publish(msg);
 		}
 	}
 } // namespace turtlesim_teleop

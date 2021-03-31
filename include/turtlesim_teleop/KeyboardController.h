@@ -1,6 +1,7 @@
 #ifndef KEYBOARD_CONTROLLER_H
 #define KEYBOARD_CONTROLLER_H
 
+#include "geometry_msgs/msg/twist.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 #include <termios.h>
@@ -33,6 +34,12 @@ namespace turtlesim_teleop {
 		void readKeyboard();
 
 		private:
+		/**
+		 * @brief The cmd_vel publisher.
+		 * 
+		 */
+		rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher;
+
 		/**
 		 * @brief The index ID referencing the terminal.
 		 * 

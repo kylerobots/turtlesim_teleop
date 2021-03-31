@@ -16,6 +16,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 
 add_executable(keyboard_control
@@ -27,6 +28,7 @@ target_include_directories(keyboard_control
 		include/turtlesim_teleop
 )
 ament_target_dependencies(keyboard_control
+	geometry_msgs
 	rclcpp
 )
 
