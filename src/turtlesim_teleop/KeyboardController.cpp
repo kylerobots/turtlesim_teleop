@@ -29,7 +29,7 @@ namespace turtlesim_teleop {
 				switch (c) {
 					case 'a':
 					case 'A':
-						RCLCPP_DEBUG(this->get_logger(), "Heard: Left");
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Strafe left");
 						msg.linear.x = 0.0;
 						msg.linear.y = 1.0;
 						msg.angular.z = 0.0;
@@ -43,7 +43,7 @@ namespace turtlesim_teleop {
 						break;
 					case 'd':
 					case 'D':
-						RCLCPP_DEBUG(this->get_logger(), "Heard: Right");
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Strafe right");
 						msg.linear.x = 0.0;
 						msg.linear.y = -1.0;
 						msg.angular.z = 0.0;
@@ -54,6 +54,20 @@ namespace turtlesim_teleop {
 						msg.linear.x = -1.0;
 						msg.linear.y = 0.0;
 						msg.angular.z = 0.0;
+						break;
+					case 'q':
+					case 'Q':
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Rotate left");
+						msg.linear.x = 0.0;
+						msg.linear.y = 0.0;
+						msg.angular.z = 1.0;
+						break;
+					case 'e':
+					case 'E':
+						RCLCPP_DEBUG(this->get_logger(), "Heard: Rotate right");
+						msg.linear.x = 0.0;
+						msg.linear.y = 0.0;
+						msg.angular.z = -1.0;
 						break;
 					case 0:
 						RCLCPP_DEBUG(this->get_logger(), "Shutting down");
