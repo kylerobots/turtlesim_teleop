@@ -9,14 +9,19 @@
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"cschlosser.doxdocgen",
 		"ms-vscode.cpptools",
-		"ms-vscode.cmake-tools",
 		"twxs.cmake",
 	],
 	"runArgs": [
 		"--network=ros",
 		"--name=ros-dev"
 	],
+	"mounts": [
+		// Mount my .clang-format file so that the code will autoformat.
+		"src=${localEnv:HOMEDRIVE}${localEnv:HOMEPATH}\\.clang-format,target=/ros_ws/.clang-format,type=bind"
+	],
+	// Put the workspace code in a ros standard directory.
 	"workspaceMount": "src=${localWorkspaceFolder},target=/ros_ws/src/${localWorkspaceFolderBasename},type=bind",
 	"workspaceFolder": "/ros_ws/src/${localWorkspaceFolderBasename}",
 	// The interactive terminals created by VS Code need to source ROS upon creation. While the ENTRYPOINT in the
