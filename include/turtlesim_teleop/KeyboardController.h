@@ -8,6 +8,13 @@
 #include <unistd.h>
 
 namespace turtlesim_teleop {
+	/**
+	 * @brief This class reads keyboard input and converts it to velocity commands.
+	 * 
+	 * This inherits from ROS2's node class and provides the publisher needed to control velocity. Upon construction,
+	 * it will modify terminal settings to allow a continuous read of key presses. These are read as characters and
+	 * converted into the appropriate Twist commands.
+	 */
 	class KeyboardController : public rclcpp::Node {
 		public:
 		/**
@@ -29,7 +36,11 @@ namespace turtlesim_teleop {
 		 * @brief Continually checks for keyboard input and sends the appropriate command in response.
 		 * 
 		 * This function runs in a continuous loop as long as ROS is active. At each loop, it attempts to read 1
-		 * character from the command line. This character can then be used for control of the turtlebot.
+		 * character from the command line. This character can then be used for control of the turtlebot. This was done
+		 * as a real quick way to get keyboard parsing working. Because it reads single characters at a time, it has
+		 * undefined behavior for things like arrow keys. It also specifically watches for a Ctrl-C kill command and
+		 * manually initiates shutdown when detected. Again, this is just to get something working very quick and is
+		 * probably not the best way to do it.
 		 */
 		void readKeyboard();
 
